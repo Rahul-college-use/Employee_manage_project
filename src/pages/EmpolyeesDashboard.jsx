@@ -1,5 +1,5 @@
 import React from 'react';
-import EmployeesHeader from './other/employeesHeader';
+import EmployeesHeader from './other/EmployeesHeader';
 import EmployeesCard from './other/EmployeesCard';
 import TaskCard from './other/TaskCard';
 
