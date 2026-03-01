@@ -12,6 +12,7 @@ const App = () => {
     const [user, setUser] = useState(null);
     const [loggedInUserData, setLoggedInUserData] = useState(null);
     const Authdata = useContext(Authcontext);
+    // console.log(Authdata.Employees)
 
     // ✅ Restore login after refresh
     useEffect(() => {
@@ -95,7 +96,7 @@ const App = () => {
             )}
 
             {user === 'admin' && loggedInUserData && (
-                <AdminDashboard data={loggedInUserData} />
+                <AdminDashboard data={loggedInUserData} employeeEmail={Authdata.Employees}/>
             )}
         </>
     );

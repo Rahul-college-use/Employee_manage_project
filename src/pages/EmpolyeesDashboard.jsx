@@ -3,13 +3,14 @@ import EmployeesHeader from './other/EmployeesHeader';
 import EmployeesCard from './other/EmployeesCard';
 import TaskCard from './other/TaskCard';
 
-const EmpolyeesDashboard = ({data}) => {
+const EmpolyeesDashboard = ({ data }) => {
   return (
     <>
-      <div className='bg-gray-700 '>
-        <EmployeesHeader data={data}/>
-        <TaskCard data={data}/>
-        <EmployeesCard data={data.tasks}/>
+      <div className="min-h-screen flex items-center justify-center 
+                    bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 px-4">
+        <EmployeesHeader data={data} />
+        <TaskCard data={data} />
+        <EmployeesCard data={data.tasks} />
       </div>
     </>
   );
