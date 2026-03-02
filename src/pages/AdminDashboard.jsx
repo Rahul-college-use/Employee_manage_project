@@ -3,24 +3,27 @@ import { getLocalStorage } from '../util/Localstorage';
 
 const AdminDashboard = ({ employeeEmail }) => {
 
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [priority, setPriority] = useState('Medium');
-  const [email, setEmail] = useState('rahul@gmail.com');
-  const [loading, setLoading] = useState(false);
-  const [userdata, setUserdata] = useState(null)
+  const [title, setTitle] = useState(''); // title 
+  const [description, setDescription] = useState(''); // description
+  const [priority, setPriority] = useState('Medium'); // default priority
+  const [email, setEmail] = useState('rahul@gmail.com'); //default email
+  const [loading, setLoading] = useState(false); // loading animation 
+  const [userdata, setUserdata] = useState(null) //total array of employees and admin from locationStoage.jsx 
+  const [employees,setEmployees] =useState(null)
 
   useEffect(() => {
     const { Employees, Admin } = getLocalStorage();
     setUserdata({ Employees, Admin });
-  }, [])
+  }, []) // tatal array of emp and admin
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
 
     setTimeout(() => {
 
-      console.log({ title, description, priority, email });
+      // console.log({ title, description, priority, email });
       // console.log(userdata.Employees)
       addTaskToEmployee(email, description, title, priority)
       setTitle('');
@@ -34,49 +37,38 @@ const AdminDashboard = ({ employeeEmail }) => {
     localStorage.setItem('loggedInUser', '')
     window.location.reload()
   }
-  const addTaskToEmployee = (email, newtaskTitle, des, priority) => {
-    const updatedEmployees = userdata.Employees.map(emp => {
-      if (emp.email == email) {
-        // console.log("hi");
-        // console.log(emp.email);
-        // calculate updated counters
-        const updatedTotal = emp.totalTasks + 1;
+ const addTaskToEmployee = (email, newtaskTitle, des, priority) => {
 
-        const updatedPending =
-          newTask.status === "pending"
-            ? emp.pendingTasks + 1
-            : emp.pendingTasks;
+  const updatedEmployees = userdata.Employees.map(emp => {
 
-        const updatedCompleted =
-          newTask.status === "completed"
-            ? emp.completedTasks + 1
-            : emp.completedTasks;
+    if (emp.email === email) {
 
-        const updatedInProgress =
-          newTask.status === "in-progress"
-            ? emp.inProgressTasks + 1
-            : emp.inProgressTasks;
+      const newTask = {
+        taskId: emp.tasks.length + 1,
+        title: newtaskTitle,
+        description: des,
+        priority: priority,
+        status: "pending",
+        date: Date.now(),
+        isNew: true
+      };
 
-        const updatedNewTasks =
-          newTask.isNew ? emp.newTasks + 1 : emp.newTasks;
+      return {
+        ...emp,
+        totalTasks: emp.totalTasks + 1,
+        pendingTasks: emp.pendingTasks + 1,
+        tasks: [...emp.tasks, newTask]
+      };
+    }
 
-        return {
-          ...emp,
-          tasks: [...emp.tasks, newTask],
-          totalTasks: updatedTotal,
-          pendingTasks: updatedPending,
-          completedTasks: updatedCompleted,
-          inProgressTasks: updatedInProgress,
-          newTasks: updatedNewTasks
-        };
-      }
-
-      return emp;
     
-    });
-      setEmployees(updatedEmployees);
+    return emp;
+  });
 
-}
+    localStorage.setItem("employees", JSON.stringify(updatedEmployees));
+
+  
+};
 
 return (
   <div className="min-h-screen flex items-center justify-center 

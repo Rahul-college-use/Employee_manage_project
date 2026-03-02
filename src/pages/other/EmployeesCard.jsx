@@ -37,18 +37,18 @@ const EmployeesCard = ({ data }) => {
             `}>
 
                         <div className='flex justify-between items-center'>
-                            <h4 className='bg-red-600 px-2 py-1 rounded text-xs sm:text-sm'>
+                            <h4 className={`${e.priority=='High'?'bg-red-500 text-white':e.priority=='Medium'?'bg-gray-700 text-white':e.priority=='Low'?'bg-blue-400 text-amber-50':""} px-2 py-1 rounded text-xs sm:text-sm`}>
                                 {e.priority}
                             </h4>
                             <h4 className='text-xs sm:text-sm'>{e.date}</h4>
                         </div>
 
-                        <h1 className='font-semibold mt-4 text-base sm:text-lg'>
+                        <h1 className='font-bold mt-4 text-base sm:text-lg'>
                             <span className='mr-2'>{e.taskId}</span>
                             Title <span>{e.title}</span>
                         </h1>
 
-                        <p className='mt-4 text-sm sm:text-base'>
+                        <p className='mt-4 text-sm font-semibold sm:text-base'>
                             {e.description}
                         </p>
 
